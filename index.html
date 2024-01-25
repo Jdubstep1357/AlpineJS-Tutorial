@@ -9,18 +9,55 @@
 
 </head>
 <body>
-    <div x-data="{ cards: [ { color: 'green', flipped: false, cleared: false } ] }"
+    <div x-data="game()"
     class="px-10 py-10 flex items-center justify-center min-h-screen">
         <div class="flex-1 grid grid-cols-4 gap-10">
             <template x-for="card in cards">
                 <!-- Will show green color if clicked, otherwise be grey -->
-                <div :style="'background: ' + (card.flipped ? card.color : '#999')" class="h-32"
-                    @click="card.flipped = ! card.flipped">
-
+                <div>
+                    <button  x-show="! card.cleared" 
+                    :style="'background: ' + (card.flipped ? card.color : '#999')" 
+                    class="w-full h-32 cursor-pointer"
+                    @click="flipCard(card)">
+                    </button>
                 </div>
 
             </template>
         </div>
     </div>    
+
+
+    <script>
+        function game() {
+            return {
+                cards: [ 
+                    { color: 'green', flipped: false, cleared: false }, 
+                    { color: 'red', flipped: false, cleared: false }, 
+                    { color: 'blue', flipped: false, cleared: false }, 
+                    { color: 'yellow', flipped: false, cleared: false }, 
+                    { color: 'green', flipped: false, cleared: false }, 
+                    { color: 'red', flipped: false, cleared: false }, 
+                    { color: 'blue', flipped: false, cleared: false }, 
+                    { color: 'yellow', flipped: false, cleared: false }, 
+                ],
+
+                // Only work on flipped cards that are set to true
+                // Computed property
+                get flippedCards() {
+                    return this.cards.filter(card => card.flipped);
+                },
+
+                flipCard(card) {
+                    card.flipped = ! card.flipped;
+
+                    if(this.flippedCards.length === 2) {
+                        if (this.flippedCards[0]['color'] === this.flippedCards[1]['color']) {
+                            this.flippedCards.forEach(card => card.cleared = true);
+                        }
+                    }
+                }
+            };
+        }
+    </script>
 </body>
 </html>
