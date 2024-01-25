@@ -11,6 +11,12 @@
 <body>
     <div x-data="game()"
     class="px-10 py-10 flex items-center justify-center min-h-screen">
+    <!-- Displays number of points-->
+    <h1 class="fixed top-0 right-0 p-10 font-bold text-3xl">
+        <span x-text="points"></span>
+        <span class="text-xs">pts</span>
+    </h1>
+
         <div class="flex-1 grid grid-cols-4 gap-10">
             <template x-for="card in cards">
                 <!-- Will show green color if clicked, otherwise be grey -->
@@ -26,6 +32,13 @@
         </div>
     </div>    
 
+
+    <!-- COMPUTED Property definition 
+    
+    Computed properties are like data properties, except they depend on other properties. 
+    Computed properties are written like methods, but they do not accept any input arguments.
+    
+    -->
 
     <script>
         function game() {
@@ -47,15 +60,56 @@
                     return this.cards.filter(card => card.flipped);
                 },
 
+                get clearedCards() {
+                    return this.cards.filter(card => card.cleared);
+                },
+
+                // Helps to check for remaining cards
+                get remainingCards() {
+                    return this.cards.filter(card => ! card.cleared);
+                },
+
+                // how many points one has. One pt for cleared card
+                get points() {
+                    return this.clearedCards.length;
+                },
+
                 flipCard(card) {
                     card.flipped = ! card.flipped;
 
-                    if(this.flippedCards.length === 2) {
-                        if (this.flippedCards[0]['color'] === this.flippedCards[1]['color']) {
+
+                    // If cards are matched, then points added 
+                    if (this.flippedCards.length === 2) {
+                        if (this.hasMatch()) {
+
+                        // Timer for showing colors for correct answer, then remove cards
+                        setTimeout(() => {
                             this.flippedCards.forEach(card => card.cleared = true);
+                        }, 1000);
+
+
+                            // Is the game over?
+                            // If there are no remaining cards
+                            if (! this.remainingCards.length) {
+                                alert('You win!');
+                            }
                         }
+
+
+                        // Timer for showing colors when wrong answer, then reset
+                        setTimeout(() => {
+                            this.flippedCards.forEach(card => card.flipped = false);
+                        }, 1000);
+
                     }
+                },
+          
+                // If cards are matched
+                hasMatch() {
+                    return this.flippedCards[0]['color'] === this.flippedCards[1]['color'];
                 }
+
+
             };
         }
     </script>
