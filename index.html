@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpine.js Essentials</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
 
 </head>
 <body>
@@ -21,10 +21,12 @@
             <template x-for="card in cards">
                 <!-- Will show green color if clicked, otherwise be grey -->
                 <div>
-                    <button  x-show="! card.cleared" 
-                    :style="'background: ' + (card.flipped ? card.color : '#999')" 
-                    class="w-full h-32 cursor-pointer"
-                    @click="flipCard(card)">
+                    <button  
+                        x-show="! card.cleared" 
+                        :style="'background: ' + (card.flipped ? card.color : '#999')" 
+                        class="w-full h-32"
+                        @click="flipCard(card)"
+                    >
                     </button>
                 </div>
 
@@ -41,6 +43,13 @@
     -->
 
     <script>
+
+        function pause(milliseconds = 1000) {
+            // set a timeout and resolve timeout after milliseconds provided
+            return new Promise(resolve => setTimeout(resolve, milliseconds));
+        }
+
+
         function game() {
             return {
                 cards: [ 
@@ -74,32 +83,24 @@
                     return this.clearedCards.length;
                 },
 
-                flipCard(card) {
+                async flipCard(card) {
                     card.flipped = ! card.flipped;
-
-
                     // If cards are matched, then points added 
                     if (this.flippedCards.length === 2) {
                         if (this.hasMatch()) {
+                            await pause();
 
-                        // Timer for showing colors for correct answer, then remove cards
-                        setTimeout(() => {
                             this.flippedCards.forEach(card => card.cleared = true);
-                        }, 1000);
 
-
-                            // Is the game over?
-                            // If there are no remaining cards
-                            if (! this.remainingCards.length) {
-                                alert('You win!');
-                            }
+                                // If there are no remaining cards
+                                if (! this.remainingCards.length) {
+                                    alert('You win!');
+                                }
                         }
 
-
-                        // Timer for showing colors when wrong answer, then reset
-                        setTimeout(() => {
-                            this.flippedCards.forEach(card => card.flipped = false);
-                        }, 1000);
+                        // calling upon function pause from top
+                        await pause();
+                        this.flippedCards.forEach(card => card.flipped = false);
 
                     }
                 },
