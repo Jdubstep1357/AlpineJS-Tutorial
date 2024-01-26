@@ -3,151 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpine.js Essentials</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
+    <title>Alpinejs Essentials</title>
 </head>
 <body>
-    <div x-data="game()"
-    class="px-10 py-10 flex items-center justify-center min-h-screen">
-    <!-- Displays number of points-->
-    <h1 class="fixed top-0 right-0 p-10 font-bold text-3xl">
-        <span x-text="points"></span>
-        <span class="text-xs">pts</span>
-    </h1>
+    
+    <div x-data="{ message: 'Hello World'}">
+        <h1 x-text="message"></h1>
 
-        <div class="flex-1 grid grid-cols-4 gap-10">
-            <template x-for="card in cards">
-                <!-- Will show green color if clicked, otherwise be grey -->
-                <div>
-                    <button  
-                        x-show="! card.cleared" 
-                        :class="'background: ' + (card.flipped ? card.color : 'bg-slate-500')" 
-                        class="w-full h-32"
-                        @click="flipCard(card)"
-                    >
-                    </button>
-                </div>
-
-            </template>
-        </div>
-    </div>    
-
-
-    <!-- Flash message -->
-    <!-- $event is referenced inside of function flash -->
-    <!-- 1. defaults to false
-    2. Waits for message to come in
- -->
-    <div x-data="{ show: false, message: 'Default Message' }"
-        x-show.transition.opacity="show"
-        @flash.window="
-            message = $event.detail.message; 
-            show = true;
-            setTimeout(() => show = false, 1000)
-            "
-        class="fixed bottom-0 right-0 bg-green-500 text-white p-2 mb-4 mr-5 rounded" 
-    >
-        <span x-text="message" class="pr-4"></span>
+        <!-- x:on and @ same thing -->
+        <button @click="message = 'Changed'">Click Me</button>
     </div>
 
-
-    <!-- COMPUTED Property definition 
-    
-    Computed properties are like data properties, except they depend on other properties. 
-    Computed properties are written like methods, but they do not accept any input arguments.
-    
-    -->
-
-    <script>
-
-        function pause(milliseconds = 1000) {
-            // set a timeout and resolve timeout after milliseconds provided
-            return new Promise(resolve => setTimeout(resolve, milliseconds));
-        }
-
-        // Accepts flash message
-        function flash(message) {
-            window.dispatchEvent (new CustomEvent('flash', {
-                detail: { message }
-            }));
-        }
-
-
-        function game() {
-            return {
-                cards: [ 
-                    { color: 'bg-green-500', flipped: false, cleared: false }, 
-                    { color: 'bg-red-500', flipped: false, cleared: false }, 
-                    { color: 'bg-blue-500', flipped: false, cleared: false }, 
-                    { color: 'bg-yellow-500', flipped: false, cleared: false }, 
-                    { color: 'bg-green-500', flipped: false, cleared: false }, 
-                    { color: 'bg-red-500', flipped: false, cleared: false }, 
-                    { color: 'bg-blue-500', flipped: false, cleared: false }, 
-                    { color: 'bg-yellow-500', flipped: false, cleared: false }, 
-                ],
-
-                // Only work on flipped cards that are set to true
-                // Computed property
-                get flippedCards() {
-                    return this.cards.filter(card => card.flipped);
-                },
-
-                get clearedCards() {
-                    return this.cards.filter(card => card.cleared);
-                },
-
-                // Helps to check for remaining cards
-                get remainingCards() {
-                    return this.cards.filter(card => ! card.cleared);
-                },
-
-                // how many points one has. One pt for cleared card
-                get points() {
-                    return this.clearedCards.length;
-                },
-
-                async flipCard(card) {
-
-                    // Dont allow user to choose other cards while validation (1 milisec) in process
-                    if (this.flippedCards.length === 2) {
-                        return;
-                    }
-
-                    card.flipped = ! card.flipped;
-                    
-                    // If cards are matched, then points added 
-                    if (this.flippedCards.length === 2) {
-                        if (this.hasMatch()) {
-                            flash('You found a match!');
-                            await pause();
-
-                            this.flippedCards.forEach(card => card.cleared = true);
-
-                                // If there are no remaining cards
-                                if (! this.remainingCards.length) {
-                                    alert('You win!');
-                                }
-                        }
-
-                        // calling upon function pause from top
-                        await pause();
-                        
-                        this.flippedCards.forEach(card => card.flipped = false);
-
-                    }
-                },
-          
-                // If cards are matched
-                hasMatch() {
-                    return this.flippedCards[0]['color'] === this.flippedCards[1]['color'];
-                    
-                }
-
-
-            };
-        }
-    </script>
 </body>
 </html>
