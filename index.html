@@ -9,11 +9,12 @@
 </head>
 <body>
     
-    <div x-data="{ message: 'Hello World'}">
-        <h1 x-text="message"></h1>
+    <div x-data="{ first: 0, second: 0 }">
 
-        <!-- x-model changes text on top as well -->
-        <input type="text" x-model="message" />
+        <input type="text" x-model.number="first"> 
+        + <input type="text" x-model.number="second"> 
+        <output x-text="first + second"></output>
+
     </div>
 
 </body>
