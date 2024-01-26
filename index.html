@@ -12,8 +12,8 @@
     <div x-data="{ message: 'Hello World'}">
         <h1 x-text="message"></h1>
 
-        <!-- x:on and @ same thing -->
-        <button @click="message = 'Changed'">Click Me</button>
+        <!-- x-model changes text on top as well -->
+        <input type="text" x-model="message" />
     </div>
 
 </body>
