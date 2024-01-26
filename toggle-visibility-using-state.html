@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <title>Toggle Visibility Using State</title>
+</head>
+<body>
+    <div x-data="{ show: false }">
+        <h1 x-show="show">Hello World!</h1>
+
+        <!-- If false, on click set it to true, if click set it to false -->
+        <button x-on:click="show = ! show" x-text="show ? 'Hide' : 'Show'">Toggle</button>
+    </div>
+    
+</body>
+</html>
