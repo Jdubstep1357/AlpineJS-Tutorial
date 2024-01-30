@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
+
+    <title>Two Way Data Binding</title>
+</head>
+<body class="p-10 max-w-lg mx-auto">
+
+    <!-- name binds to other input box :value-->
+    <form 
+        x-data="{
+            name: 'John Doe'
+        }">
+        
+        <div class="mb-6">
+            <label for="" class="block mb-2 uppercase font-bold text-xs text-gray-700">
+                Name
+            </label>
+
+            <!-- :value displays current value inside of input box -->
+            <input type="text" class="border border-gray-400 p-2 w-full"
+            type="text"
+            name=""
+            id=""
+            :value="name">
+
+            <p x-text="name"></p>
+        </div>
+
+    </form>
+    
+</body>
+</html>
