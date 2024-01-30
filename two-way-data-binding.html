@@ -17,8 +17,13 @@
                 name: 'John Doe'
             },
 
+            // HOW TO SUBMIT DATA WITH FORM
             submit() {
-                alert('This works too')
+                fetch('https://reqres.in/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.form)
+                });
             }
         }"
         
