@@ -17,13 +17,17 @@
                 name: 'John Doe'
             },
 
+            user: null,
+
             // HOW TO SUBMIT DATA WITH FORM
             submit() {
                 fetch('https://reqres.in/api/users', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(this.form)
-                });
+                })
+                .then(response => response.json())
+                .then(user => this.user = user);
             }
         }"
         
@@ -44,6 +48,11 @@
             x-model="form.name"
             >
         </div>
+
+        <!-- Displays only if user exists ie input added-->
+        <template x-if="user">
+            <div x-text="'The user ' + user.name + ' was created at ' + user.createdAt"></div>
+        </template>
 
     </form>
     
