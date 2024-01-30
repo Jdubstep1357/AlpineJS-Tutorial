@@ -5,21 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
     <title>Toggle Visibility Using State</title>
+    <style>
+        .active {
+            color: white;
+            background-color: blue;
+        }
+    </style>
 </head>
 <body>
-    <div x-data="{ currentTab: '' }">
-        <div x-show="currentTab === 'first'">
-            <p>First tab</p>
-        </div>
+    <div x-data="{ currentTab: 'first' }">
 
-        <div x-show="currentTab === 'second'">
-            <p>Second tab</p>
-        </div>
+        <button @click="currentTab = 'first'"
+        :class="{ 'active' : currentTab === 'first' }">First</button>
+        
+        <button @click="currentTab = 'second'"
+        :class="{ 'active' : currentTab === 'second' }">Second</button>
+        
+        <button @click="currentTab = 'third'" 
+        :class="{ 'active' : currentTab === 'third' }">Third</button>
 
-        <div x-show="currentTab === 'third'">
-            <p>Third tab</p>
+        <div style="border: 1px dotted; padding: 1rem; margin-top: 1rem">
+            <div x-show="currentTab === 'first'">
+                <p>First tab</p>
+            </div>
+
+            <div x-show="currentTab === 'second'">
+                <p>Second tab</p>
+            </div>
+
+            <div x-show="currentTab === 'third'">
+                <p>Third tab</p>
+            </div>
         </div>
     </div>
-    
 </body>
 </html>
