@@ -13,8 +13,18 @@
     <!-- name binds to other input box :value-->
     <form 
         x-data="{
-            name: 'John Doe'
-        }">
+            form: {
+                name: 'John Doe'
+            },
+
+            submit() {
+                alert('This works too')
+            }
+        }"
+        
+        @submit.prevent="submit"
+        
+        >
         
         <div class="mb-6">
             <label for="" class="block mb-2 uppercase font-bold text-xs text-gray-700">
@@ -26,9 +36,8 @@
             type="text"
             name=""
             id=""
-            x-model="name">
-
-            <p x-text="name"></p>
+            x-model="form.name"
+            >
         </div>
 
     </form>
