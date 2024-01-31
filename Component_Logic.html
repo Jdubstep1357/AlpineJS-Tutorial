@@ -13,11 +13,15 @@
         tasks: [],
         newTask: ''
      }">
-     <!-- Upon submit, push the form -->
-        <form @submit.prevent="tasks.push(newTask)">
-            <input type="text" placeholder="Go to the market" x-model="newTask">
+     <!-- Upon submit, push the form, automatically resets input box upon submit -->
+        <form @submit.prevent="tasks.push(newTask); newTask = ''">
+            <input type="text" 
+            placeholder="Go to the market" 
+            x-model="newTask"
+            class="w-full"
+            >
         </form>
-        <ul class="list-disc">
+        <ul class="list-disc mt-3">
             <template x-for="(task, index) in tasks" :key="index">
                 <li x-text="task"></li>
             </template>
