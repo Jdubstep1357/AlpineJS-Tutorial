@@ -6,6 +6,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
     <title>How and When to Extract Component</title>
+
+    <!-- REFERENCES FILE js/app.js -->
+    <script src="/js/app.js"></script>
 </head>
 <body class="p-10 mx-w-lg mx-auto">
 
@@ -37,18 +40,6 @@
 </body>
 
 <script>
-    // taskApp is function that returns object
-    let taskApp = () => {
-        return { 
-            tasks: [], 
-            newTask: '',
-            
-            // Function inside of method, use this to reference up stream
-            submit() {
-                this.tasks.push({ body: this.newTask, completed: false }); 
-                this.newTask = '';
-            }
-        }
-    }
+
 </script>
 </html>
