@@ -9,12 +9,11 @@
 </head>
 <body class="p-10 mx-w-lg mx-auto">
 
-    <div class="bg-gray-300 px-10 py-6 rounded" x-data="{ 
-        tasks: [],
-        newTask: ''
-     }">
+    <div class="bg-gray-300 px-10 py-6 rounded" 
+    x-data="taskApp()">
+
      <!-- Upon submit, push the form, automatically resets input box upon submit -->
-        <form @submit.prevent="tasks.push({ body: newTask, completed: false }); newTask = ''">
+        <form @submit.prevent="submit">
             <input type="text" 
             placeholder="Go to the market" 
             x-model="newTask"
@@ -36,4 +35,20 @@
     </div>
     
 </body>
+
+<script>
+    // taskApp is function that returns object
+    let taskApp = () => {
+        return { 
+            tasks: [], 
+            newTask: '',
+            
+            // Function inside of method, use this to reference up stream
+            submit() {
+                this.tasks.push({ body: this.newTask, completed: false }); 
+                this.newTask = '';
+            }
+        }
+    }
+</script>
 </html>
