@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
+    <title>How and When to Extract Component</title>
+</head>
+<body class="p-10 mx-w-lg mx-auto">
+
+    <div class="bg-gray-300 px-10 py-6 rounded" x-data="{ 
+        tasks: [],
+        newTask: ''
+     }">
+     <!-- Upon submit, push the form -->
+        <form @submit.prevent="tasks.push(newTask)">
+            <input type="text" placeholder="Go to the market" x-model="newTask">
+        </form>
+        <ul class="list-disc">
+            <template x-for="(task, index) in tasks" :key="index">
+                <li x-text="task"></li>
+            </template>
+        </ul>
+    </div>
+    
+</body>
+</html>
