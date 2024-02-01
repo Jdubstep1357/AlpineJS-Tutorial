@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
+    <title>Transitions</title>
+</head>
+
+<body class="grid items-center justify-center h-screen">
+
+    <!-- :x-transition binds css classes. Toggling shape will add or get rid of classes -->
+    <div x-data="{ show: true }">
+        <div class="w-12 h-12">
+            <div class="bg-green-400 w-full h-full" 
+            x-show="show"
+
+            x-transition:enter="transition duration-1000"
+            x-transition:enter-start="transition opacity-0"
+            x-transition:enter-end="transition opacity-100"
+    
+            x-transition:leave="transition duration-1000"
+            x-transition:leave-start="transition opacity-100"
+            x-transition:leave-end="transition opacity-0"
+            ></div>
+        </div>
+
+        <button @click="show = ! show">Toggle</button>
+    </div>
+
+</body>
+</html>
