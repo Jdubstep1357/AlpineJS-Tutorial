@@ -8,16 +8,14 @@
     <title>8 - Handling Custom Events</title>
 </head>
 
-<!-- 
-    1. Button calls global function flash
-    2. flash then calls transition message
--->
 
 <body class="p-12">
 
     <!-- Second alpine component -->
+    <!-- $dispatch is a helper shorthand for firing custom event-->
+
     <div x-data>
-        <button @click="flash('Hello There')">Trigger flash message</button>
+        <button @click="$dispatch('flash', 'Hello again')">Trigger flash message</button>
     </div>
 
     <hr>
@@ -39,9 +37,6 @@
     </div>
 
 
-    <script>
-        window.flash = message => window.dispatchEvent(new CustomEvent('flash', { detail:message }));
-    </script>
 
 </body>
 </html>
