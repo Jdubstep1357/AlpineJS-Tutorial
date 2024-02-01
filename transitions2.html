@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com" rel="stylesheet"></script>
+    <title>Transitions 2</title>
+</head>
+<body class="grid items-center justify-center h-screen">
+
+    <!-- If one clicks away then run expression -->
+    <div x-data="{ show: false }" @click.away="show = false">
+        <button @click="show = ! show">Links</button>
+
+        <div class="absolute bg-black text-white py-2 px-4 rounded mt-1" 
+            x-show="show"
+            
+            x-transition:enter="transition duration-200 transform ease-out"
+            x-transition:enter-start="scale-75"
+
+            x-transition:leave="transition duration-100 transform ease-in"
+            x-transition:leave-end="opacity-0 scale-90"
+        >
+            <a class="block hover:bg-gray-800 text-xs py-px" href="#">Edit</a>
+            <a class="block hover:bg-gray-800 text-xs py-px" href="#">Delete</a>
+            <a class="block hover:bg-gray-800 text-xs py-px" href="#">Report Spam</a>
+        </div>
+
+    </div>
+    
+</body>
+</html>
