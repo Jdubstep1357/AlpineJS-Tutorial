@@ -16,13 +16,13 @@
             <div class="bg-green-400 w-full h-full" 
             x-show="show"
 
-            x-transition:enter="transition duration-1000"
-            x-transition:enter-start="transition opacity-0"
-            x-transition:enter-end="transition opacity-100"
+            x-transition:enter="transition transform duration-1000"
+            x-transition:enter-start="opacity-0 scale-125"
+            x-transition:enter-end="opacity-100 scale-100"
     
             x-transition:leave="transition duration-1000"
-            x-transition:leave-start="transition opacity-100"
-            x-transition:leave-end="transition opacity-0"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
             ></div>
         </div>
 
